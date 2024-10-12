@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}ARKO HOLDINGS{% endblock %}</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <header>
+            <nav
+              class="block w-full max-w-screen-xl px-6 py-3 mx-auto bg-white border shadow-md rounded-xl border-white/80 bg-opacity-30 backdrop-blur-2xl backdrop-saturate-200">
+              <div class="flex items-center justify-between text-blue-gray-900">
+                <a href="#"
+                  class="mr-4 block cursor-pointer py-1.5 font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit">
+                  ARKO HOLDINGS
+                </a>
+                <div class="hidden lg:block">
+                  <ul class="flex flex-col gap-2 my-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+                    <li class="block p-1 font-sans text-sm font-medium leading-normal text-green-950">
+                      <a href="#" class="flex items-center transition-colors hover:text-blue-500">
+                        ABOUT
+                      </a>
+                    </li>
+                    <li class="block p-1 font-sans text-sm font-medium leading-normal text-green-950">
+                      <a href="#" class="flex items-center transition-colors hover:text-blue-500">
+                        PROJECTS
+                      </a>
+                    </li>
+                    <li class="block p-1 font-sans text-sm font-medium leading-normal text-green-950">
+                      <a href="#" class="flex items-center transition-colors hover:text-blue-500">
+                        PRICING
+                      </a>
+                    </li>
+                    <li class="block p-1 font-sans text-sm font-medium leading-normal text-green-950">
+                      <a href="#" class="flex items-center transition-colors hover:text-blue-500">
+                        CONTACT
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <button
+                  class="relative ml-auto h-6 max-h-[40px] w-6 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden"
+                  type="button">
+                  <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                      aria-hidden="true" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </nav>
+        </header>
+
+        <section class="isolate px-6 py-40 sm:py-32 lg:px-8">
+            <div>
+                <div class="mx-auto max-w-2xl text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-300 sm:text-4xl">Real Estate Price Prediction</h2>
+                    <p class="mt-2 text-lg leading-8 text-gray-500">empowering smarter investments</p>
+                </div>
+                {% block content %}{% endblock %}
+                <div class="mt-20 flex items-center w-full p-4 bg-white shadow mx-auto mt-4">
+                    <div class="mx-auto">
+                        <h3 class="text-2xl text-gray-800 font-bold lg:text-3xl">
+                            {{ prediction_text }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function(e) {
+            const now = new Date();
+
+            // Create or update hidden inputs
+            updateHiddenInput('month', now.getMonth() + 1); // getMonth() returns 0-11
+            updateHiddenInput('day', now.getDate());
+            updateHiddenInput('week_day', now.getDay()); // getDay() returns 0-6 (0 is Sunday)
+        });
+
+        function updateHiddenInput(name, value) {
+            let input = form.querySelector(`input[name="${name}"]`);
+            if (!input) {
+                input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                form.appendChild(input);
+            }
+            input.value = value;
+        }
+    });
+    </script>
+    </body>
+</html>

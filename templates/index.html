@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}ARKO HOLDINGS - Price Prediction Model{% endblock %}
+{% block content %}
+    <form action="{{ url_for('predict')}}" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
+
+        <!-- BHK input (Number of Bedrooms, Hall, Kitchen) -->
+        <div class="m-2 sm:col-span-2">
+            <label for="bhk" class="block text-sm font-semibold leading-6 text-gray-300">BHK (Bedrooms, Hall, Kitchen)</label>
+            <div class="mt-2.5">
+                <input type="number" name="bhk" id="bhk" placeholder="BHK (Bedrooms, Hall, Kitchen)" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+
+        <!--Size-->
+        <div class="m-2 sm:col-span-2">
+            <label for="size" class="block text-sm font-semibold leading-6 text-gray-300">Size (sqft)</label>
+            <div class="mt-2.5">
+                <input type="number" name="size" id="size" placeholder="Size" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+
+        <!-- Area Type input (dropdown) -->
+        <div class="m-2 sm:col-span-2">
+            <label for="area_type" class="block text-sm font-semibold leading-6 text-gray-300">Area Type</label>
+            <div class="mt-2.5">
+                <select name="area_type" id="area_type" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <option  class="font-semibold text-gray-600">select an option</option>
+                    <option value="2">Super Area</option>
+                    <option value="1">Carpet Area</option>
+                    <option value="0">Built Area</option>
+                </select>
+            </div>
+        </div>
+
+        <!--City-->
+        <div class="m-2 sm:col-span-2">
+            <label for="city" class="block text-sm font-semibold leading-6 text-gray-300">City</label>
+            <div class="mt-2.5">
+                <select name="city" id="city" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                    <option  class="font-semibold text-gray-600">select an option</option>
+                    <option value="5">Hyderabad</option>
+                    <option value="4">Chennai</option>
+                    <option value="3">Delhi</option>
+                    <option value="2">Bangalore</option>
+                    <option value="1">Mumbai</option>
+                    <option value="0">Kolkata</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Furnishing Status input (dropdown) -->
+        <div class="m-2 sm:col-span-2">
+            <label for="furnishing_status" class="block text-sm font-semibold leading-6 text-gray-300">Furnishing Status</label>
+            <div class="mt-2.5">
+                <select name="furnishing_status" id="furnishing_status" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <option  class="font-semibold text-gray-600">select an option</option>
+                    <option value="2">Furnished</option>
+                    <option value="1">Semi-Furnished</option>
+                    <option value="0">Unfurnished</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tenant Preferred input (dropdown) -->
+        <div class="m-2 sm:col-span-2">
+            <label for="tenant_preferred" class="block text-sm font-semibold leading-6 text-gray-300">Tenant Preferred</label>
+            <div class="mt-2.5">
+                <select id="tenant_preferred" name="tenant_preferred" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <option  class="font-semibold text-gray-600">select an option</option>
+                    <option value="2">Family</option>
+                    <option value="1">Bachelors</option>
+                    <option value="0">Bachelors/Family</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Bathroom input (integer) -->
+        <div class="m-2 sm:col-span-2">
+            <label for="bathroom" class="block text-sm font-semibold leading-6 text-gray-300">Number of Bathrooms</label>
+            <div class="mt-2.5">
+                <input type="number" name="bathroom" id="bathroom" placeholder="Number of Bathrooms" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+
+        <!-- Point of Contact input (dropdown) -->
+        <div class="m-2 sm:col-span-2">
+            <label for="point_of_contact" class="block text-sm font-semibold leading-6 text-gray-300">Point of Contact</label>
+            <div class="mt-2.5">
+                <select id="point_of_contact" name="point_of_contact" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <option  class="font-semibold text-gray-600">select an option</option>
+                    <option value="2">Contact Builder</option>
+                    <option value="1">Contact Agent</option>
+                    <option value="0">Contact Owner</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Floor Level input (integer) -->
+        <div class="m-2 sm:col-span-2">
+            <label for="floor_level" class="block text-sm font-semibold leading-6 text-gray-300">Floor Level</label>
+            <div class="mt-2.5">
+                <input type="number" name="floor_level" id="floor_level" placeholder="Floor Level" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+
+        <!-- Total Floors input (integer) -->
+        <div class="m-2 sm:col-span-2">
+            <label for="total_floor" class="block text-sm font-semibold leading-6 text-gray-300">Total Number of Floors</label>
+            <div class="mt-2.5">
+                <input type="number" name="total_floor" id="total_floor" placeholder="Number of Floors" required class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            </div>
+        </div>
+        <input type="hidden" name="month" value="{{ current_month }}">
+        <input type="hidden" name="day" value="{{ current_day }}">
+        <input type="hidden" name="week_day" value="{{ current_weekday }}">
+
+        <!--Submit and Reset Buttons-->
+        <div class="mt-10">
+            <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-4">Predict</button>
+        </div>
+    </form>
+{% endblock %}
